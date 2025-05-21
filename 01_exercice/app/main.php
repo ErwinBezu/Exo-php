@@ -3,6 +3,7 @@
 require_once __DIR__ . '/Entity/Etudiant.php';
 require_once __DIR__ . '/Repository/EtudiantRepository.php';
 require_once __DIR__ . '/Utils/Database.php';
+require_once __DIR__ . '/functions.php';
 
 use App\Repository\EtudiantRepository;
 use App\Entity\Etudiant;
@@ -25,43 +26,23 @@ while (true) {
 
     switch ($choix) {
         case 1:
-            $etudiants = $repo->findAll();
-            foreach ($etudiants as $e) {
-                echo "$e->id | $e->nom $e->prenom | $e->date_de_naissance | $e->email\n";
-            }
+            voirEtudiants($repo);
             break;
 
         case 2:
-            $nom = readline("Nom : ");
-            $prenom = readline("Prénom : ");
-            $date = readline("Date de naissance (YYYY-MM-DD) : ");
-            $email = readline("Email : ");
-            $repo->add(new Etudiant(null, $nom, $prenom, $date, $email));
-            echo "Étudiant ajouté.\n";
+            ajouterEtudiant($repo);
             break;
 
         case 3:
-            $id = (int)readline("ID de l'étudiant à modifier : ");
-            $nom = readline("Nouveau nom : ");
-            $prenom = readline("Nouveau prénom : ");
-            $date = readline("Nouvelle date de naissance (YYYY-MM-DD) : ");
-            $email = readline("Nouvel email : ");
-            $repo->update(new Etudiant($nom, $prenom, $date, $email, (int)$id));
-            echo "Étudiant modifié.\n";
+            modifierEtudiant($repo);
             break;
 
         case 4:
-            $id = (int)readline("ID de l'étudiant à supprimer : ");
-            $repo->delete((int)$id);
-            echo "Étudiant supprimé.\n";
+            supprimerEtudiant($repo);
             break;
 
         case 5:
-            $term = readline("Nom ou prénom à rechercher : ");
-            $resultats = $repo->search($term);
-            foreach ($resultats as $e) {
-                echo "$e->id | $e->nom $e->prenom | $e->date_de_naissance | $e->email\n";
-            }
+            rechercherEtudiant($repo);
             break;
 
         case 0:
