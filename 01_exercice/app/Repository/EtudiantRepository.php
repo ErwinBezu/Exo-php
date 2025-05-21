@@ -65,7 +65,7 @@ class EtudiantRepository
     public function add(Etudiant $etudiant): bool
     {
         $sql ="
-            INSERT INTO etudiant (nom, prenom, `date_de_naissance`, `email`) 
+            INSERT INTO etudiant (nom, prenom, date_de_naissance, email) 
             VALUES (:nom, :prenom, :date_de_naissance, :email)
         ";
 
@@ -97,7 +97,7 @@ class EtudiantRepository
 
         $stmt = $this->pdo->prepare($sql);
 
-        $stmt->bindValue(':nom', $etudiant->nom,PDO::PARAM_STR );
+        $stmt->bindValue(':nom', $etudiant->nom,PDO::PARAM_STR);
         $stmt->bindValue(':prenom', $etudiant->prenom, PDO::PARAM_STR);
         $stmt->bindValue(':date_de_naissance', $etudiant->date_de_naissance, PDO::PARAM_STR);
         $stmt->bindValue(':email', $etudiant->email, PDO::PARAM_STR);
